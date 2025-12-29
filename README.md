@@ -105,7 +105,7 @@ Uygulama, laboratuvar test sonuçlarını referans değerlerle karşılaştırar
 
 1. **Projeyi Klonlayın**
    ```bash
-   git clone https://github.com/kullaniciadi/LabNet.git
+   git clone https://github.com/emreetumer/LabNet.git
    cd LabNet
    ```
 

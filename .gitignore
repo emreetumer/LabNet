@@ -1,5 +1,11 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# 🔒 SECURITY - Firebase Config (NEVER commit!)
+firebaseConfig.js
+.env
+.env.local
+.env.production
+
 # dependencies
 node_modules/
 
@@ -16,6 +22,7 @@ expo-env.d.ts
 *.p12
 *.key
 *.mobileprovision
+*.pem
 
 # Metro
 .metro-health-check*
@@ -27,10 +34,22 @@ yarn-error.*
 
 # macOS
 .DS_Store
-*.pem
+
+# Windows
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
 # local env files
 .env*.local
 
 # typescript
 *.tsbuildinfo
+
+# Logs
+*.log
+logs/

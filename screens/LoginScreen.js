@@ -12,33 +12,47 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurun');
+      console.log('❌ Boş alan var');
       return;
     }
+
+    console.log('🔄 Giriş deneniyor:', email);
 
     try {
       // Firebase Authentication ile giriş
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      console.log('✅ Auth başarılı! User ID:', user.uid);
 
       // Kullanıcının rolünü almak için Firestore sorgusu
       const userDocRef = doc(db, 'users', user.uid);
+      console.log('🔍 Firestore sorgusu yapılıyor...');
+
       const userDoc = await getDoc(userDocRef);
+      console.log('📄 Firestore dökümanı:', userDoc.exists() ? 'BULUNDU' : 'BULUNAMADI');
 
       if (userDoc.exists()) {
         const userData = userDoc.data();
+        console.log('👤 Kullanıcı verisi:', userData);
+        console.log('🎭 Rol:', userData.role);
 
         // Kullanıcı rolüne göre yönlendirme
         if (userData.role === 'admin') {
+          console.log('➡️ Admin sayfasına yönlendiriliyor...');
           navigation.navigate('Admin'); // Admin navigasyonu
         } else if (userData.role === 'user') {
+          console.log('➡️ User sayfasına yönlendiriliyor...');
           navigation.navigate('User'); // User navigasyonu
         } else {
+          console.log('❌ Rol tanımlı değil:', userData.role);
           Alert.alert('Hata', 'Rol bilgisi tanımlı değil.');
         }
       } else {
+        console.log('❌ Firestore dökümanı bulunamadı!');
         Alert.alert('Hata', 'Kullanıcı bilgileri bulunamadı.');
       }
     } catch (error) {
+      console.log('❌ HATA:', error.code, error.message);
       Alert.alert('Giriş Hatası', error.message);
     }
   };
